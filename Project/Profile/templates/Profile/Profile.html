@@ -1,0 +1,143 @@
+{% extends 'Home/header.html' %}
+
+{% block content %}
+
+{% include 'Home/head.html' %}
+
+    <main>
+        <!--? slider Area Start-->
+        <section class="slider-area slider-area2">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-11 col-md-12">
+                                <div class="hero__caption hero__caption2">
+                                    <h1 data-animation="bounceIn" data-delay="0.2s">Welcome {{ user.username }}</h1>
+                                    <!-- breadcrumb Start-->
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="{% url 'Home:Home' %}">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="{% url 'Notes:Create' %}">Create Your Notes</a></li> 
+                                        </ol>
+                                    </nav>
+                                    <!-- breadcrumb End -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </section>
+        <!-- Courses area start -->
+        <div class="courses-area section-padding40 fix">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>Saved Definitions</h2>
+                        </div>
+                    </div>
+                </div>
+					{% for definition in definitions %}
+					<article class="blog_item">
+						<div class="blog_details">
+							<a class="d-inline-block" href="/concept/{{ definition.concept.topic.grade.subject.slug }}/{{ definition.concept.topic.grade.slug }}/{{ definition.concept.topic.slug }}#{{ definition.term }}">
+							<h2 class="blog-head" style="color: #2d2d2d;">{{ definition.term }}</h2>
+							</a> 
+							<!--<p>{{ explanation.explanation_for_concept }}<br>-->
+							{% for term in definition.definitionsforterm %}
+							<p>{{ term.definition_for_term }}</p>
+							{% endfor %}
+						<a href="{{ definition.remove_definition }}" class="genric-btn warning-border">Remove</a>							
+						</div>
+					</article>
+					{% endfor %}
+            </div>
+			<div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>Saved Explanations</h2>
+                        </div>
+                    </div>
+                </div>
+					{% for explanation in explanations %}
+						<article class="blog_item">
+							<div class="blog_details">
+								<a class="d-inline-block" href="/concept/{{ explanation.concept.topic.grade.subject.slug }}/{{ explanation.concept.topic.grade.slug }}/{{ explanation.concept.topic.slug }}#{{ explanation.title }}">
+								<h2 class="blog-head" style="color: #2d2d2d;">{{ explanation.title }}</h2>
+								</a>
+								<!--<p>{{ explanation.explanation_for_concept }}<br>-->
+								<p>{{ explanation.explanation_for_concept }}</p>
+						<a href="{{ explanation.remove_explanation }}" class="genric-btn warning-border">Remove</a>	
+							</div>
+						</article>
+					{% endfor %}
+            </div>
+			
+			<div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>Your Notes</h2>
+                        </div>
+                    </div>
+                </div>
+					{% for note in notes %}
+						<article class="blog_item">
+							<div class="blog_details">
+								<a class="d-inline-block" href="{{ note.view_note }}">
+								<h2 class="blog-head" style="color: #2d2d2d;">{{ note.name }}</h2>
+								</a>
+								<p>{{ note.first_fifty_words }}...</p>
+							</div>
+						</article>
+					{% endfor %}
+            </div>
+			
+			<div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>Saved Notes</h2>
+                        </div>
+                    </div>
+                </div>
+					{% for saved_note in saved_notes %}
+						<article class="blog_item">
+							<div class="blog_details">
+								<a class="d-inline-block" href="{{ saved_note.view_note }}">
+								<h2 class="blog-head" style="color: #2d2d2d;">{{ saved_note.name }}</h2>
+								</a>
+								<p>{{ saved_note.first_fifty_words }}...</p>
+								<p><a href="{{ saved_note.remove_note }}" class="genric-btn warning-border">Remove</a></p>
+							</div>
+						</article>
+					{% endfor %}
+            </div>
+			
+			<div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>Saved Videos</h2>
+                        </div>
+                    </div>
+                </div>
+					{% for video in videos %}
+						<article class="blog_item">
+							<div class="blog_details">
+								<a class="d-inline-block" href="/concept/{{ video.topic.grade.subject.slug }}/{{  video.topic.grade.slug}}/{{ video.topic.slug }}#{{ video.title }}">
+								<h2 class="blog-head" style="color: #2d2d2d;">{{ video.title }}</h2>
+								</a>
+								<p><a href="{{ video.remove_video }}" class="genric-btn warning-border">Remove</a></p>
+							</div>
+						</article>
+					{% endfor %}
+            </div>
+        </div>
+    </main>
+	
+{% endblock %}

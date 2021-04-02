@@ -1,0 +1,112 @@
+{% extends 'Home/header.html' %}
+
+{% block content %}
+
+{% include 'Home/head.html' %}
+
+    <main>
+        <!--? slider Area Start-->
+        <section class="slider-area slider-area2">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-11 col-md-12">
+                                <div class="hero__caption hero__caption2">
+                                    <h1 data-animation="bounceIn" data-delay="0.2s">Notes</h1>
+                                    <!-- breadcrumb Start-->
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="{% url 'Home:Home' %}">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="{% url 'Notes:Create' %}">Create Your Own Note</a></li> 
+                                        </ol>
+                                    </nav>
+                                    <!-- breadcrumb End -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </section>
+        <!--? Blog Area Start-->
+        <section class="blog_area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mb-5 mb-lg-0">
+                        <div class="blog_left_sidebar">
+							{% for note in notes %}
+								{% if search_notes != None %}
+									{% if note in search_notes %}
+										<article class="blog_item">
+											<div class="blog_item_img">
+												<img class="card-img rounded-0" src="assets/img/blog/single_blog_3.png" alt="">
+												<a href="#" class="blog_item_date">
+													<h3>{{ note.date.day }}</h3>
+													<p>{{ note.date_month }}</p>
+												</a>
+											</div>
+											<div class="blog_details">
+												<a class="d-inline-block" href="{{ note.view_note }}">
+													<h2 class="blog-head" style="color: #2d2d2d;">{{ note.name }}</h2>
+												</a>
+												<p>{{ note.first_fifty_words }}</p>
+												<ul class="blog-info-link">
+													<li><a href="#"><i class="fa fa-user"></i>{{ note.topic.title }}</a></li>
+													<li><a href="#"><i class="fa fa-comments"></i> {{ note.comments.count }} Comments</a></li>
+												</ul>
+											</div>
+										</article>
+									{% endif %}
+								{% else %}
+									<article class="blog_item">
+										<div class="blog_item_img">
+											<img class="card-img rounded-0" src="assets/img/blog/single_blog_3.png" alt="">
+											<a href="#" class="blog_item_date">
+												<h3>{{ note.date.day }}</h3>
+												<p>{{ note.date_month }}</p>
+											</a>
+										</div>
+										<div class="blog_details">
+											<a class="d-inline-block" href="{{ note.view_note }}">
+												<h2 class="blog-head" style="color: #2d2d2d;">{{ note.name }}</h2>
+											</a>
+											<p>{{ note.first_fifty_words }}</p>
+											<ul class="blog-info-link">
+												<li><a href="#"><i class="fa fa-user"></i>{{ note.topic.title }}</a></li>
+												<li><a href="#"><i class="fa fa-comments"></i> {{ note.comments.count }} Comments</a></li>
+											</ul>
+										</div>
+									</article>
+								{% endif %}
+							{% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="blog_right_sidebar">
+                            <aside class="single_sidebar_widget search_widget">
+                                <form method="GET">
+                                    <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <input type="text" name="search" class="form-control" placeholder='Search Keyword'
+                                            onfocus="this.placeholder = ''"
+                                            onblur="this.placeholder = 'Search Keyword'">
+                                            <div class="input-group-append">
+                                                <button class="btns" type="button"><i class="ti-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                    type="submit">Search</button>
+                                </form>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Blog Area End -->
+    </main>
+
+{% endblock %}

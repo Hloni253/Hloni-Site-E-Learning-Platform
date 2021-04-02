@@ -1,0 +1,75 @@
+{% extends 'Home/header.html' %}
+
+{% block content %}
+
+{% include 'Home/head.html' %}
+
+<main>
+	<section class="slider-area slider-area2">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-11 col-md-12">
+                                <div class="hero__caption hero__caption2">
+                                    <h1 data-animation="bounceIn" data-delay="0.2s">Create Notes</h1>
+                                    <!-- breadcrumb Start-->
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="{% url 'Home:Home' %}">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="{% url 'Notes:List' %}">View Notes</a></li> 
+                                        </ol>
+                                    </nav>
+                                    <!-- breadcrumb End -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </section>
+		
+			<form method="POST">
+				{% csrf_token %}
+				<div class="mt-10">
+					<input type="text" name="name" placeholder="Notes title"
+					onfocus="this.placeholder = ''" onblur="this.placeholder = 'Notes title'" required
+					class="single-input">
+				</div>
+				<div class="mt-10">
+					<div class="form-select" id="default-select"">
+						<select name="topic">
+							<!--<option value=" 1">Topic</option>
+							<option value="1">Mechanics</option>
+							<option value="2">Waves Sound And Light</option>
+							<option value="3">Electricity And Magnetism</option>-->
+							{% for topic in topics %}
+								<option value="{{ topic.id }}">{{ topic.title }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="mt-10">
+					<div class="form-select" id="default-select"">
+						<select name="status">
+							<!--<option value=" 1">Status</option>-->
+							<option value="Pu">Public</option>
+							<option value="Pr">Private</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="mt-10">
+					<textarea class="single-textarea" name="notes" placeholder="Notes" onfocus="this.placeholder = ''"
+					onblur="this.placeholder = 'Notes'" required></textarea>
+				</div>
+				
+				<div class="form-group mt-3">
+                    <button type="submit" class="button button-contactForm boxed-btn">Post</button>
+                </div>
+
+		</form>
+</main>
+
+{% endblock %}
